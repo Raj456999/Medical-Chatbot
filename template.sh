@@ -9,6 +9,4 @@ touch src/app.py
 touch research/trails.ipynb
 touch requirements.txt
 
-echo 'Directory and files created
-'
-
+echo 'Directory and files created'
