@@ -1,8 +1,13 @@
 import streamlit as st
 from rag_pipeline import get_answer
 import base64
+import os
 
-def get_base64_image(image_path):
+# FUNCTION TO LOAD IMAGE
+def get_base64_image(image_name):
+
+    current_dir = os.path.dirname(__file__)
+    image_path = os.path.join(current_dir, image_name)
 
     with open(image_path, "rb") as img_file:
         encoded = base64.b64encode(
@@ -12,76 +17,76 @@ def get_base64_image(image_path):
     return encoded
 
 # LOAD IMAGE
-bg_image = get_base64_image("Medical-Chatbot/src/bot.jpg")
+bg_image = get_base64_image("bot.jpg")
 
 # PAGE CONFIG
-# st.set_page_config(
-#     page_title="Medical AI Assistant",
-#     page_icon="🩺",
-#     layout="centered"
-# )
+st.set_page_config(
+    page_title="Medical AI Assistant",
+    page_icon="🩺",
+    layout="centered"
+)
 
 # CUSTOM CSS
-st.markdown("""
+st.markdown(f"""
 <style>
 
 /* Main App Background */
-.stApp {
+.stApp {{
     background-image: linear-gradient(
         rgba(0,0,0,0.7),
         rgba(0,0,0,0.7)
     ),
-   url("data:image/jpg;base64,{bg_image}");
+    url("data:image/jpg;base64,{bg_image}");
 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     color: white;
-}
+}}
 
 /* Sidebar */
-[data-testid="stSidebar"] {
+[data-testid="stSidebar"] {{
     background-color: #111827;
-}
+}}
 
 /* Title */
-.main-title {
+.main-title {{
     text-align: center;
     font-size: 45px;
     font-weight: bold;
     color: white;
     margin-bottom: 20px;
-}
+}}
 
 /* Chat Input */
-.stChatInput input {
+.stChatInput input {{
     background-color: #1e293b !important;
     color: white !important;
     border-radius: 15px !important;
     border: 2px solid #3b82f6 !important;
-}
+}}
 
 /* User Chat Bubble */
-.user-message {
+.user-message {{
     background-color: #2563eb;
     padding: 15px;
     border-radius: 15px;
     margin: 10px 0;
     color: white;
-}
+}}
 
 /* Assistant Chat Bubble */
-.assistant-message {
+.assistant-message {{
     background-color: #1e293b;
     padding: 15px;
     border-radius: 15px;
     margin: 10px 0;
     color: white;
-}
+}}
 
 /* Buttons */
-.stButton > button {
+.stButton > button {{
     background: linear-gradient(90deg, #3b82f6, #06b6d4);
     color: white;
     border-radius: 12px;
@@ -90,12 +95,12 @@ st.markdown("""
     width: 100%;
     font-size: 18px;
     transition: 0.3s;
-}
+}}
 
-.stButton > button:hover {
+.stButton > button:hover {{
     transform: scale(1.02);
     background: linear-gradient(90deg, #2563eb, #0891b2);
-}
+}}
 
 </style>
 """, unsafe_allow_html=True)
@@ -116,7 +121,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# SESSION STATE FOR CHAT HISTORY
+# SESSION STATE
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
