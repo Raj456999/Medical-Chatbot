@@ -13,7 +13,7 @@ pc = Pinecone(api_key=PINECONE_API_KEY)
 INDEX_NAME = 'medical-ai-assistant'
 
 # Load + Process Docs
-extracted_data = load_pdf(r"C:\Users\palla\OneDrive\Desktop\Medical chatbot\Medical-Chatbot\Data")
+extracted_data = load_pdf("Medical-Chatbot\Data")
 clean_data = filter_text(extracted_data)
 chunks = text_to_chunks(clean_data)
 
