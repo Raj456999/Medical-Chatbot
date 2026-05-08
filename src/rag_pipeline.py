@@ -19,13 +19,15 @@ retriever = doc_search.as_retriever(
 
 def get_answer(query):
 
-    # Retrieve relevant documents
+    # Retrieve relevant docs
     docs = retriever.invoke(query)
 
-    # Combine retrieved context
-    context = "\n\n".join([doc.page_content for doc in docs])
+    # Combine context
+    context = "\n\n".join(
+        [doc.page_content for doc in docs]
+    )
 
-    # Final prompt
+    # Create final prompt string
     final_prompt = f"""
     {system_prompt}
 
@@ -36,7 +38,7 @@ def get_answer(query):
     {query}
     """
 
-    # Generate response using Groq
+    # Generate response
     response = llm.chat.completions.create(
         model="llama3-8b-8192",
         messages=[
@@ -44,7 +46,9 @@ def get_answer(query):
                 "role": "user",
                 "content": final_prompt
             }
-        ]
+        ],
+        temperature=0.3,
+        max_tokens=512
     )
 
     answer = response.choices[0].message.content
