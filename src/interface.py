@@ -69,7 +69,7 @@ st.markdown(f"""
 
 /* User Chat Bubble */
 .user-message {{
-    background-color: #2563eb;
+    background-color: #0f766e;
     padding: 15px;
     border-radius: 15px;
     margin: 10px 0;
