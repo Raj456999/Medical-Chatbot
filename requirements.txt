@@ -1,11 +1,11 @@
 streamlit
-langchain==0.3.25
-langchain-community==0.3.24
-langchain-pinecone==0.2.5
-langchain-groq==0.3.2
-pinecone==7.0.2
+langchain
+langchain-community
+langchain-pinecone
+pinecone
 sentence-transformers
 faiss-cpu
 python-dotenv
 pypdf
+groq
 -e .
