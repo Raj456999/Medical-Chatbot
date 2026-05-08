@@ -10,3 +10,4 @@ touch research/trails.ipynb
 touch requirements.txt
 
 echo 'Directory and files created'
+# run this in git bash

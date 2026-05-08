@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+
+    <!-- Link Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Chat History</h2>
+        <ul>
+            <li>Conversation 1</li>
+            <li>Conversation 2</li>
+        </ul>
+    </div>
+
+    <!-- Chat Area -->
+    <div class="chat-area">
+        <!-- Header -->
+        <div class="header">
+            Medical AI Chatbot
+        </div>
+
+        <!-- Messages -->
+        <div id="chat-box" class="chat-box"></div>
+
+        <!-- Input -->
+        <div class="input-area">
+            <input id="user-input" type="text" placeholder="Type your message..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+</div>
+
+<script>
+function appendMessage(text, role) {
+    const chatBox = document.getElementById("chat-box");
+    const msg = document.createElement("div");
+
+    msg.className = `message ${role}`;
+    msg.innerText = text;
+
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+async function sendMessage() {
+    const input = document.getElementById("user-input");
+    const text = input.value.trim();
+
+    if (!text) return;
+
+    appendMessage(text, "user");
+    input.value = "";
+
+    appendMessage("Typing...", "bot");
+
+    try {
+        const response = await fetch("/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ message: text })
+        });
+
+        const data = await response.json();
+
+        document.getElementById("chat-box").lastChild.remove();
+        appendMessage(data.response, "bot");
+    } catch (error) {
+        document.getElementById("chat-box").lastChild.remove();
+        appendMessage("Error connecting to server", "bot");
+    }
+}
+
+// Enter key support
+
+document.getElementById("user-input").addEventListener("keypress", function(e) {
+    if (e.key === "Enter") sendMessage();
+});
+</script>
+
+</body>
+</html>
