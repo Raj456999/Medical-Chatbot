@@ -1,6 +1,6 @@
 from store_index import doc_search
 # from langchain_groq import ChatGroq
-import groq
+from groq import Groq
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.prompts import ChatPromptTemplate
 from Prompt import system_prompt
