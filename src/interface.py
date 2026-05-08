@@ -12,7 +12,7 @@ def get_base64_image(image_path):
     return encoded
 
 # LOAD IMAGE
-bg_image = get_base64_image("bot.jpg")
+bg_image = get_base64_image("Medical-Chatbot/src/bot.jpg")
 
 # PAGE CONFIG
 # st.set_page_config(
