@@ -61,7 +61,7 @@ st.markdown(f"""
 
 /* Chat Input */
 .stChatInput input {{
-    background-color: #1e293b !important;
+    background-color: #0f766e !important;
     color: white !important;
     border-radius: 15px !important;
     border: 2px solid #3b82f6 !important;
