@@ -19,38 +19,39 @@ retriever = doc_search.as_retriever(
 
 def get_answer(query):
 
-    # Retrieve relevant docs
-    docs = retriever.invoke(query)
+    try:
 
-    # Combine context
-    context = "\n\n".join(
-        [doc.page_content for doc in docs]
-    )
+        docs = retriever.invoke(query)
 
-    # Create final prompt string
-    final_prompt = f"""
-    {system_prompt}
+        context = "\n\n".join(
+            [doc.page_content for doc in docs]
+        )
 
-    Context:
-    {context}
+        final_prompt = f"""
+        {system_prompt}
 
-    User Question:
-    {query}
-    """
+        Context:
+        {context}
 
-    # Generate response
-    response = llm.chat.completions.create(
-        model="llama3-8b-8192",
-        messages=[
-            {
-                "role": "user",
-                "content": final_prompt
-            }
-        ],
-        temperature=0.3,
-        max_tokens=512
-    )
+        User Question:
+        {query}
+        """
 
-    answer = response.choices[0].message.content
+        response = llm.chat.completions.create(
+            model="llama3-8b-8192",
+            messages=[
+                {
+                    "role": "user",
+                    "content": final_prompt
+                }
+            ],
+            temperature=0.3,
+            max_tokens=512
+        )
 
-    return answer
+        answer = response.choices[0].message.content
+
+        return answer
+
+    except Exception as e:
+        return f"ERROR: {str(e)}"
