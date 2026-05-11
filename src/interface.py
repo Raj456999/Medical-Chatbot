@@ -149,7 +149,7 @@ for message in st.session_state.messages:
         )
 
 # CHAT INPUT
-query = st.chat_input("Ask your medical question...")
+query = st.chat_input("Ask query related to your health...")
 
 if query:
 
